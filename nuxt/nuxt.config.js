@@ -1,7 +1,19 @@
 export default {
+  privateRuntimeConfig: {
+    // directus: {
+    //   url: process.env.DIRECTUS_URL,
+    // },
+  },
+  publicRuntimeConfig: {
+    // directus: {
+    //   url: process.env.DIRECTUS_URL,
+    // },
+    // baseURL:
+    //   process.env.BASE_URL || "https://latinoconnectionevents-org.vercel.app",
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'ketolife',
+    title: 'Ketolife',
     htmlAttrs: {
       lang: 'en'
     },
@@ -24,6 +36,12 @@ export default {
   plugins: [
   ],
 
+  loading: {
+    color: "#000000",
+    height: "5px",
+    throttle: 0,
+  },
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -33,6 +51,15 @@ export default {
     '@nuxtjs/tailwindcss',
   ],
 
+  tailwindcss: {
+    cssPath: "~/assets/css/main.css",
+    configPath: "~~/tailwind.config.js",
+    exposeConfig: false,
+    injectPosition: 0,
+    viewer: false,
+    config: {},
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -41,11 +68,26 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    // baseURL: 'http://localhost:3000',
+    headers: {
+      common: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        },
+      },
+    },
+  },
+
+  // serverMiddleware: [{ path: "/api/directus", handler: "~/api/directus.js" }],
 }
